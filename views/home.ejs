@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shorten-Url</title>
+</head>
+<body>
+   
+    <h1>URL Shortener</h1>
+   
+    <!-- Form to make a frontend -->
+   
+    <form method="POST" action="/url">
+        <label for="url">Enter URL</label>        
+        <input type="text" name="url" placeholder="http://www.example.com" >
+       <button type="submit">Generate</button>
+    </form>
+
+    <!-- if there is  id coming only -->
+ 
+   
+    <% if (locals.id) { %>
+    <p>URL Generated: http://localhost:8001/url/<%= id %></p>
+    <% } %>
+
+
+    <!-- Table to show analytical data of url shortner. -->
+    <br>
+   <div>
+    <% if (locals.url) { %>
+    <table border="1">
+        <tr>
+
+        <th>shortlink</th>
+        <th>url</th>
+        <th>visit count</th>
+        <th>visit link</th>
+        </tr>
+       
+            <% url.forEach(url => { %>
+                <tr>
+                <td><%= url.redirectURL %></td>
+                <td><%= url.shortId %></td>
+                <td>http://localhost:8000/url/<%= url.shortId %></td>
+                <td><%= url.visitHistory.length %></td>
+            </tr>
+            <% }) %>
+      
+    </table> 
+    <% } %>
+</div>
+    
+   
+</body>
+</html>
