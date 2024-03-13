@@ -1,9 +1,11 @@
 const express = require("express");
 const { connectMonogDB } = require("./connection")
+const cookieParser = require('cookie-parser')
 const urlRouter = require("./routes/url")
 const staticRouter = require("./routes/staticRouter")
 const userRouter = require("./routes/user")
 const path = require('path');
+const restrictToLoggedInUser = require("./middlewares/auth")
 
 
 const app = express();
@@ -15,6 +17,8 @@ app.set('views',path.resolve('./views'))
 
 //middleware
 app.use(express.urlencoded({extended: false}))
+app.use(cookieParser())
+
 
 //connect to DB
 connectMonogDB('mongodb://127.0.0.1:27017/url-shortner').then(()=>

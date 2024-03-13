@@ -1,12 +1,16 @@
 const express = require("express");
-const {createNewUser,loginExistingUser,showSignUpPage} = require("../controllers/user")
+const {createNewUser,loginExistingUser} = require("../controllers/user")
+const user = require("../models/user")
 
 const router = express.Router();
 
-router.get('/signup',showSignUpPage);
-router.post('/signup',createNewUser)
+router.post('/',createNewUser)
+router.get('/', async(req,res)=>{
+    res.send(await user.find({}))
+})
 
-router.get('/login',loginExistingUser);
+router.post('/login',loginExistingUser)
+
 
 
 module.exports = router
