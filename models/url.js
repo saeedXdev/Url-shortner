@@ -16,6 +16,7 @@ const urlSchema = mongoose.Schema({
             timestamp: Date
         }
     ],
+    createdBy: String,
 
 },{timestamps: true})
 

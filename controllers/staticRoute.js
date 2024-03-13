@@ -8,7 +8,6 @@ async function renderHomePage(req,res){
 }
 
 
-
 module.exports={
     renderHomePage,
 }

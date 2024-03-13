@@ -1,12 +1,12 @@
 const express = require("express");
 const { connectMonogDB } = require("./connection")
 const cookieParser = require('cookie-parser')
+const path = require('path');
+const { restrictToLoggedInUser,ifAuth }= require("./middlewares/auth")
+
 const urlRouter = require("./routes/url")
 const staticRouter = require("./routes/staticRouter")
 const userRouter = require("./routes/user")
-const path = require('path');
-const restrictToLoggedInUser = require("./middlewares/auth")
-
 
 const app = express();
 const PORT=8000;
@@ -25,9 +25,9 @@ connectMonogDB('mongodb://127.0.0.1:27017/url-shortner').then(()=>
     console.log("connected to MonogDB")
 )
 
-app.use("/url",urlRouter);
+app.use("/url",restrictToLoggedInUser,urlRouter);
 app.use("/",staticRouter);
-app.use("/user",userRouter);
+app.use("/user",ifAuth,userRouter);
 
 //listening on port
 app.listen(PORT,()=>console.log(`Listening to port ${PORT}`))

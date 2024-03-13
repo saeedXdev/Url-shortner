@@ -28,9 +28,10 @@ async function loginExistingUser(req,res){
         error:"Invalid username or password"
     })
     const sessionId = uuidv4(); 
+    console.log(sessionId);
     setUser(sessionId,userData)
     res.cookie('uid',sessionId);
-
+    console.log(getUser(sessionId))
     //verify user here and redirect to homepage.
     res.redirect("/")
 }
