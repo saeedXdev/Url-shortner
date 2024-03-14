@@ -20,7 +20,7 @@ async function createShortIdInDatabase(req,res){
  
     })
     const data = await url.find({"createdBy":userMail})
-    console.log(req.cookies.uid)
+    // console.log(req.cookies.uid)
     return res.render('home.ejs',{
         id:shortId,
         url:data

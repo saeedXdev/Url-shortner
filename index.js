@@ -26,8 +26,13 @@ connectMonogDB('mongodb://127.0.0.1:27017/url-shortner').then(()=>
 )
 
 app.use("/url",restrictToLoggedInUser,urlRouter);
-app.use("/",staticRouter);
-app.use("/user",ifAuth,userRouter);
+// app.use("/url",urlRouter);
+
+app.use("/",ifAuth,staticRouter);
+// app.use("/user",userRouter);
+
+//here ifAuth is a problem
+app.use("/user",userRouter);
 
 //listening on port
 app.listen(PORT,()=>console.log(`Listening to port ${PORT}`))

@@ -1,6 +1,6 @@
 const user = require("../models/user")
 const { v4: uuidv4 } = require('uuid');
-const {getUser,setUser} = require("../service/auth")
+const {setUser,} = require("../service/auth")
 
 
 async function createNewUser(req,res){
@@ -21,17 +21,20 @@ async function showSignUpPage(req,res){
 }
 async function loginExistingUser(req,res){
 
-    const {email,password} = req.body;
+    // console.log("loginExistingUser")
 
+    const {email,password} = req.body;
+    // return res.json({"status":"this function called"})
     const userData= await user.findOne({email,password});
     if(!userData) return res.render('login',{
         error:"Invalid username or password"
     })
-    const sessionId = uuidv4(); 
-    console.log(sessionId);
-    setUser(sessionId,userData)
-    res.cookie('uid',sessionId);
-    console.log(getUser(sessionId))
+    // const sessionId = uuidv4(); 
+    // console.log(sessionId);
+    
+    const token = setUser(userData)
+    res.cookie('uid',token);
+    // console.log(getUser(sessionId))
     //verify user here and redirect to homepage.
     res.redirect("/")
 }
