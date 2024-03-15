@@ -1,12 +1,12 @@
 const express = require("express")
-const {createShortIdInDatabase,fetchAllUrlFromDB,redirectToURL,getAnalyticsReport,createNewUser,loginExistingUser} = require("../controllers/url")
+const {createShortIdInDatabase,redirectToURL,getAnalyticsReport} = require("../controllers/url")
 
 const router = express.Router()
 
 router
 .route('/')
 .post(createShortIdInDatabase)
-.get(fetchAllUrlFromDB)
+
 
 router.get('/:shortId',redirectToURL)
 

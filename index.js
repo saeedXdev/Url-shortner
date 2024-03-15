@@ -2,11 +2,12 @@ const express = require("express");
 const { connectMonogDB } = require("./connection")
 const cookieParser = require('cookie-parser')
 const path = require('path');
-const { restrictToLoggedInUser,ifAuth }= require("./middlewares/auth")
+const { restrictToLoggedInUser,ifAuth, checkForAdminUser }= require("./middlewares/auth")
 
 const urlRouter = require("./routes/url")
 const staticRouter = require("./routes/staticRouter")
 const userRouter = require("./routes/user")
+const adminRoute = require("./routes/adminRoute")
 
 const app = express();
 const PORT=8000;
@@ -33,6 +34,8 @@ app.use("/",ifAuth,staticRouter);
 
 //here ifAuth is a problem
 app.use("/user",userRouter);
+
+app.use("/admin",restrictToLoggedInUser,checkForAdminUser,adminRoute)
 
 //listening on port
 app.listen(PORT,()=>console.log(`Listening to port ${PORT}`))

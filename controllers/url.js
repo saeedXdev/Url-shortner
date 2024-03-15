@@ -28,10 +28,7 @@ async function createShortIdInDatabase(req,res){
    return res.status(201).json({"msg":"Shortner created"})
 }
 
-async function fetchAllUrlFromDB(req,res){
-    const data = await url.find({});
-    return res.status(200).json(data);
-}
+
 
 async function redirectToURL(req,res){
     const shortId = req.params.shortId
@@ -67,7 +64,6 @@ async function getAnalyticsReport(req,res){
 
 module.exports={
     createShortIdInDatabase,
-    fetchAllUrlFromDB,
     redirectToURL,
     getAnalyticsReport,
    

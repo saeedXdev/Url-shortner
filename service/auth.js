@@ -8,7 +8,8 @@ function setUser(user)
    
     const payload={
         name : user.name,
-        email : user.email
+        email : user.email,
+        role: user.role
     }
     // console.log("checking")
     return jwt.sign(payload,privateKey)
@@ -18,7 +19,9 @@ function setUser(user)
 function getUser(token)
 {   
     if(!token) return null;
-    return jwt.verify(token,privateKey)
+    const verified = jwt.verify(token,privateKey)
+    // console.log(verified);
+    return verified
     // return sessionIdToUserMap.get(id)
 }
 
